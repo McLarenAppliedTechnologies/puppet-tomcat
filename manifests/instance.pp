@@ -336,7 +336,7 @@ define tomcat::instance(
           ensure  => directory,
           owner   => $owner,
           group   => $group,
-          mode    => '0555',
+          mode    => '0755',
           before  => Service["tomcat-${name}"],
           require => $group_require,
           ;
