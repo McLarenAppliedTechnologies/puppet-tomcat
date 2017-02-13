@@ -42,10 +42,13 @@ class tomcat::source {
   $tomcaturl = "${baseurl}/apache-tomcat-${version}.tar.gz"
 
   archive{ "/opt/apache-tomcat-${version}.tar.gz":
-    url          => $tomcaturl,
-    checksum_url => "${tomcaturl}.md5",
-    extract      => true,
-    extract_path => "/opt/apache-tomcat-${version}",
+    url           => $tomcaturl,
+    checksum_url  => "${tomcaturl}.md5",
+    checksum_type => 'md5',
+    extract       => true,
+    extract_path  => '/opt',
+    cleanup       => false,
+    creates       => "/opt/apache-tomcat-${version}",
   }
 
   file { '/opt/apache-tomcat':
