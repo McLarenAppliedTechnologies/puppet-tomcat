@@ -41,7 +41,7 @@ class tomcat::source {
   $baseurl = "${sources_src}/tomcat-${maj_version}/v${version}/bin"
   $tomcaturl = "${baseurl}/apache-tomcat-${version}.tar.gz"
 
-  archive{ "apache-tomcat-${version}":
+  archive{ "/opt/apache-tomcat-${version}":
     url         => $tomcaturl,
     digest_url  => "${tomcaturl}.md5",
     digest_type => 'md5',
@@ -51,7 +51,7 @@ class tomcat::source {
   file { '/opt/apache-tomcat':
     ensure  => link,
     target  => $::tomcat::home,
-    require => Archive["apache-tomcat-${version}"],
+    require => Archive["/opt/apache-tomcat-${version}"],
     before  => Class['tomcat::logging'],
   }
 
@@ -67,7 +67,7 @@ class tomcat::source {
       file {"${::tomcat::home}/bin/catalina.sh":
         ensure  => file,
         content => file(sprintf('%s/files/catalina.sh-6.0.18', get_module_path($module_name))),
-        require => Archive["apache-tomcat-${tomcat::version}"],
+        require => Archive["/opt/apache-tomcat-${tomcat::version}"],
         mode    => '0755',
       }
     }
